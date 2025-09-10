@@ -5,35 +5,30 @@ Proje, kullanıcıların kayıt olabilmesini, giriş yapabilmesini, hesapların�
 
 ---
 
-## 📂 Proje Yapısı
+## 🏗 Mimari Yapı
+Proje **3 katmandan** oluşmaktadır:
 
-Proje 3 ana katmandan oluşur:
+### 1️⃣ Data Katmanı
+- **Entities**: `UserEntity`, `SecurityEntity`, `AccountEntity`  
+- **Enums**: `SecurityActionType` (Login, Logout, PasswordChange, TwoFactorEnabled vb.)  
+- **Repositories**: Generic `IRepository<T>` ve `Repository<T>` implementasyonu  
+- **UnitOfWork**: Transaction yönetimi
 
-BankSystem
-│
-├── BankSystem.Data # Entity Framework Core, Entities, Repositories, Configurations
-├── BankSystem.Business # İş mantığı, Service katmanı, Validations, DTOs
-├── BankSystem.WebApi # ASP.NET Core Web API, Controllers, JWT Authentication
+### 2️⃣ Business Katmanı
+- **Service Layer**: User, Auth, Security, Account işlemlerini kapsar  
+- **DTOs**: API ile veri alışverişini kolaylaştırmak için kullanılır  
+- **Data Protection**: Şifrelerin güvenli saklanması için `IDataProtection` kullanılmıştır  
 
-### 🔹 Katmanlar
-
-- **Data Layer (BankSystem.Data)**  
-  - `Entities`: Veritabanı tablolarını temsil eden entity sınıfları  
-  - `Enums`: Kullanıcı tipleri, SecurityActionType gibi enum tanımları  
-  - `Repositories`: Generic repository yapısı  
-  - `Configurations`: Entity Framework Core Fluent API konfigürasyonları  
-  - `UnitOfWork`: Transaction yönetimi  
-
-- **Business Layer (BankSystem.Business)**  
-  - `Operations`: İş mantığı servisleri (UserManager, SecurityManager, AccountManager, vb.)  
-  - `Dtos`: Veri transfer objeleri  
-  - `Types`: ServiceMessage gibi ortak dönüş tipleri  
-  - `DataProtection`: Şifreleme/deşifreleme mekanizması  
-  - `Sms`: 2FA için SMS gönderim servisi  
-
-- **Web API Layer (BankSystem.WebApi)**  
-  - `Controllers`: Kullanıcı, Güvenlik, Auth ve diğer işlemleri yöneten controllerlar  
-  - `Program.cs`: Middleware, Service registration, JWT Authentication  
+### 3️⃣ WebApi Katmanı
+- **Controllers**:  
+  - `AuthController`  
+  - `UserController`  
+  - `SecurityController`  
+  - `AccountController`  
+- **Middleware**:  
+  - Exception handling  
+  - JWT Authentication  
+- **Dependency Injection**: Tüm servisler `Program.cs` üzerinden eklenmiştir  
 
 ---
 
