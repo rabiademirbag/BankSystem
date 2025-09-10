@@ -26,7 +26,6 @@ Proje **3 katmandan** oluşmaktadır:
   - `SecurityController`  
   - `AccountController`  
 - **Middleware**:  
-  - Exception handling  
   - JWT Authentication  
 - **Dependency Injection**: Tüm servisler `Program.cs` üzerinden eklenmiştir  
 
